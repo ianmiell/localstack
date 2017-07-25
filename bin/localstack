@@ -60,7 +60,7 @@ if __name__ == "__main__":
                 if value is not None:
                     env_str += '-e %s=%s ' % (env_var, value)
 
-            docker_cmd = ('docker run -it %s %s' +
+            docker_cmd = ('docker run -d %s %s' +
                 '-p %s:8080 %s ' +
                 '-v "%s:/tmp/localstack" -v "%s:%s" ' +
                 '-e DOCKER_HOST="unix://%s" ' +
