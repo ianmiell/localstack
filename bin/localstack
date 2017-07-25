@@ -45,6 +45,7 @@ if __name__ == "__main__":
             image_name = os.environ.get('IMAGE_NAME', constants.DOCKER_IMAGE_NAME)
             service_ports = config.SERVICE_PORTS
             max_port = max(4592, max(service_ports.values()))
+            web_port_str = str(max_port + 1)
             port_mappings = '-p {min_port}-{max_port}:{min_port}-{max_port}'.format(
                 min_port=min(service_ports.values()), max_port=max_port)
 
@@ -60,11 +61,11 @@ if __name__ == "__main__":
                     env_str += '-e %s=%s ' % (env_var, value)
 
             docker_cmd = ('docker run -it %s %s' +
-                '-p 8080:8080 %s ' +
+                '-p %s:8080 %s ' +
                 '-v "%s:/tmp/localstack" -v "%s:%s" ' +
                 '-e DOCKER_HOST="unix://%s" ' +
                 '-e HOST_TMP_FOLDER="%s" "%s" %s') % (
-                    entrypoint, env_str, port_mappings, config.TMP_FOLDER,
+                    entrypoint, env_str, web_port_str, port_mappings, config.TMP_FOLDER,
                     config.DOCKER_SOCK, config.DOCKER_SOCK, config.DOCKER_SOCK,
                     config.HOST_TMP_FOLDER, image_name, cmd
                 )
