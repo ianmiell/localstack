@@ -75,4 +75,6 @@ ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 
 # run tests (to verify the build before pushing the image)
 ADD tests/ tests/
+RUN pip install localstack
 RUN make test
+CMD localstack start
