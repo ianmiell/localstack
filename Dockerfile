@@ -48,7 +48,13 @@ ENV AWS_ACCESS_KEY_ID=foobar \
     USER=localstack
 
 # expose service & web dashboard ports
-EXPOSE 4567-4582 8080
+EXPOSE 4567
+EXPOSE 4568
+EXPOSE 4569
+EXPOSE 4580
+EXPOSE 4581
+EXPOSE 4582
+EXPOSE 8080
 
 # install supervisor daemon & copy config file
 ADD bin/supervisord.conf /etc/supervisord.conf
